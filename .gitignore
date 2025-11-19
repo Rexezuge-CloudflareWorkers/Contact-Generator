@@ -1,6 +1,7 @@
 # Visual Studio Code
 .vscode/
 
+wrangler.jsonc
 worker-configuration.d.ts
 
 # Generated src directory
