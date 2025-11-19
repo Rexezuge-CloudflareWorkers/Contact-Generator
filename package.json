@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "predeploy": "cd app && npm install && npm run release",
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev",
+    "predeploy": "npm run buildApp && npm install && npm run cf-typegen",
+		"deploy": "wrangler deploy --dry-run",
+		"postdeploy": "wrangler deploy",
+    "buildApp": "cd app && npm install && npm run release",
     "cf-typegen": "wrangler types"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.10.8",
     "@cloudflare/workers-types": "^4.20251119.0",
     "typescript": "^5.9.3",
     "wrangler": "^4.49.0"
