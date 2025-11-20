@@ -30,7 +30,8 @@ function App() {
 				includeAddress: includeAddress.toString(),
 			});
 
-			const response = await fetch(`/api/contact?${params}`);
+			const baseUrl = import.meta.env.VITE_OPTIONAL_BACKEND_URL || '';
+			const response = await fetch(`${baseUrl}/api/contact?${params}`);
 			const data = await response.json();
 			setContact(data);
 		} catch (error) {
