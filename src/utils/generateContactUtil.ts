@@ -11,6 +11,17 @@ function getRandomElement<T>(array: T[]): T {
     return array[Math.floor(Math.random() * array.length)];
 }
 
+function seedRandom(): void {
+    // Use current timestamp + random component for better entropy
+    Math.random = (() => {
+        let seed = Date.now() + Math.random() * 1000000;
+        return () => {
+            seed = (seed * 9301 + 49297) % 233280;
+            return seed / 233280;
+        };
+    })();
+}
+
 function generatePhoneNumber(): string {
     const areaCode = Math.floor(Math.random() * 900) + 100;
     const exchange = Math.floor(Math.random() * 900) + 100;
@@ -23,6 +34,8 @@ function generateZipCode(): string {
 }
 
 export function generateContact(includeEmail: boolean, includePhone: boolean, includeAddress: boolean) {
+    seedRandom(); // Initialize fresh seed for each contact
+    
     const firstName = getRandomElement(firstNames);
     const lastName = getRandomElement(lastNames);
     const fullName = `${firstName} ${lastName}`;
